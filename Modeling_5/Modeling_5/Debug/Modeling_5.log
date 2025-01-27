@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\PC\Desktop\University\Modeling\Modeling_5\Modeling_5\main.cpp(20,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Modeling_5.vcxproj -> C:\Users\PC\Desktop\University\Modeling\Modeling_5\Debug\Modeling_5.exe

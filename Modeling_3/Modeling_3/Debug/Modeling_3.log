@@ -1,0 +1,5 @@
+﻿  main.cpp
+C:\Users\PC\Desktop\University\Modeling\Modeling_3\Modeling_3\main.cpp(7,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\PC\Desktop\University\Modeling\Modeling_3\Modeling_3\main.cpp(11,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\PC\Desktop\University\Modeling\Modeling_3\Modeling_3\main.cpp(25,20): warning C4018: <: несоответствие типов со знаком и без знака
+  Modeling_3.vcxproj -> C:\Users\PC\Desktop\University\Modeling\Modeling_3\Debug\Modeling_3.exe
