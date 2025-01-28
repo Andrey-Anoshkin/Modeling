@@ -12,16 +12,15 @@ def g(x, y):
 x = 1
 y = 1
 t = 0
-T = 10
+T = 100
 dt = 1e-2
-eps = 1e-6
 
 x_coords = [x]
 y_coords = [y]
 
 while t < T:
-    xn = f(x, y)
-    yn = g(x, y)
+    xn = x + dt * f(x, y)
+    yn = y + dt * g(x, y)
     x_coords.append(xn)
     y_coords.append(yn)
     x = xn
@@ -30,7 +29,6 @@ while t < T:
 
 xs = np.array(x_coords, dtype=float)
 ys = np.array(y_coords, dtype=float)
-print(xs[:10])
 
 plt.plot(xs, ys)
 plt.show()

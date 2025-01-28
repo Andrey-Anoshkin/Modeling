@@ -4,7 +4,7 @@ import random
 
 xs = []
 ys = []
-N = 50
+N = int(input())
 
 for i in range(N):
     xs.append(random.random())

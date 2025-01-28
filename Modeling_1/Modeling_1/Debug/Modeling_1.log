@@ -1,5 +1,5 @@
 ﻿  main.cpp
-C:\Users\PC\Desktop\University\Modeling\Modeling_1\Modeling_1\main.cpp(6,21): warning C4305: инициализация: усечение из "double" в "float"
-C:\Users\PC\Desktop\University\Modeling\Modeling_1\Modeling_1\main.cpp(7,22): warning C4305: инициализация: усечение из "double" в "float"
-C:\Users\PC\Desktop\University\Modeling\Modeling_1\Modeling_1\main.cpp(9,23): warning C4305: инициализация: усечение из "double" в "float"
+C:\Users\PC\Desktop\University\Modeling\Modeling_1\Modeling_1\main.cpp(6,22): warning C4305: инициализация: усечение из "double" в "float"
+C:\Users\PC\Desktop\University\Modeling\Modeling_1\Modeling_1\main.cpp(7,23): warning C4305: инициализация: усечение из "double" в "float"
+C:\Users\PC\Desktop\University\Modeling\Modeling_1\Modeling_1\main.cpp(9,24): warning C4305: инициализация: усечение из "double" в "float"
   Modeling_1.vcxproj -> C:\Users\PC\Desktop\University\Modeling\Modeling_1\Debug\Modeling_1.exe

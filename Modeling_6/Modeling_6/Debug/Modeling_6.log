@@ -1,4 +1,4 @@
 ﻿  main.cpp
-C:\Users\PC\source\repos\Modeling_6\Modeling_6\main.cpp(8,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\PC\source\repos\Modeling_6\Modeling_6\main.cpp(15,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Modeling_6.vcxproj -> C:\Users\PC\source\repos\Modeling_6\Debug\Modeling_6.exe
+C:\Users\PC\Desktop\University\Modeling\Modeling_6\Modeling_6\main.cpp(8,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\PC\Desktop\University\Modeling\Modeling_6\Modeling_6\main.cpp(15,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Modeling_6.vcxproj -> C:\Users\PC\Desktop\University\Modeling\Modeling_6\Debug\Modeling_6.exe
