@@ -35,35 +35,34 @@ double Model::generateTime() {
 }
 
 void Model::analyze(double time) {
-	if (this->active_1) {
+	if (this->active_1)
 		if (time >= this->timeOfTaskDoneFirst && time <= this->timeOfTaskDoneFirst) {
 			this->active_1 = false;
 			this->timeOfTaskDoneFirst = 100000;
 		}
-	}
-	else {
+
+	if (!this->active_1) 
 		if (!this->q.empty()) {
 			this->active_1 = true;
 			this->timeInQueue.push_back(time - this->q.front());
 			this->q.pop();
 			this->timeOfTaskDoneFirst = time + this->generateTime();
 		}
-	}
+	
 
-	if (this->active_2) {
+	if (this->active_2) 
 		if (time >= this->timeOfTaskDoneSecond && time <= this->timeOfTaskDoneSecond) {
 			this->active_2 = false;
 			this->timeOfTaskDoneSecond = 100000;
 		}
-	}
-	else {
+	
+	if (!this->active_2) 
 		if (!this->q.empty()) {
 			this->active_2 = true;
 			this->timeInQueue.push_back(time - this->q.front());
 			this->q.pop();
 			this->timeOfTaskDoneSecond = time + this->generateTime();
 		}
-	}
 }
 
 vector<double>& Model::getTimeInQueue() {

@@ -61,10 +61,9 @@ int main() {
 			time_of_task += generateTask();
 		}
 		
-		if (current_count == total_count) {
+		if (current_count == total_count) 
 			time_of_task = 100000;
-		}
-
+		
 		model.analyze(current_time);
 		for (int i = countInQueue.size(); i < model.getQueueLength() + 1; countInQueue.push_back(0), ++i);
 
