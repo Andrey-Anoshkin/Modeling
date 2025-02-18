@@ -1,0 +1,86 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}vector\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}time.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}cmath\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Model.h\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+\PYG{k+kt}{double} \PYG{n}{lambda} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{;}
+\PYG{k+kt}{double} \PYG{n}{mu} \PYG{o}{=} \PYG{l+m+mi}{15}\PYG{p}{;}
+
+\PYG{k+kt}{double} \PYG{n+nf}{generateTask}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{k+kt}{int} \PYG{n}{r} \PYG{o}{=} \PYG{n}{rand}\PYG{p}{();}
+	\PYG{k}{return} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0} \PYG{o}{/} \PYG{n}{lambda} \PYG{o}{*} \PYG{n}{log}\PYG{p}{(}\PYG{n}{min}\PYG{p}{(}\PYG{n}{max}\PYG{p}{(}\PYG{n}{r}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{RAND\PYGZus{}MAX} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{1.0} \PYG{o}{/} \PYG{n}{RAND\PYGZus{}MAX}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n+nf}{nextMoment}\PYG{p}{(}\PYG{n}{Model}\PYG{o}{\PYGZam{}} \PYG{n}{model}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{time\PYGZus{}of\PYGZus{}task}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{k+kt}{double} \PYG{n}{min\PYGZus{}time} \PYG{o}{=}
+		\PYG{p}{(}\PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeOfTaskDoneFirst}\PYG{p}{()} \PYG{o}{\PYGZlt{}=} \PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeOfTaskDoneSecond}\PYG{p}{())} \PYG{o}{?}
+		\PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeOfTaskDoneFirst}\PYG{p}{()} \PYG{o}{:} \PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeOfTaskDoneSecond}\PYG{p}{();}
+
+	\PYG{k+kt}{double} \PYG{n}{next\PYGZus{}moment} \PYG{o}{=} \PYG{p}{(}\PYG{n}{min\PYGZus{}time} \PYG{o}{\PYGZlt{}=} \PYG{n}{time\PYGZus{}of\PYGZus{}task}\PYG{p}{)} \PYG{o}{?} \PYG{n+nl}{min\PYGZus{}time} \PYG{p}{:} \PYG{n}{time\PYGZus{}of\PYGZus{}task}\PYG{p}{;}
+
+	\PYG{k}{return} \PYG{n}{next\PYGZus{}moment}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n+nf}{m}\PYG{p}{(}\PYG{n}{Model}\PYG{o}{\PYGZam{}} \PYG{n}{model}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{k+kt}{float} \PYG{n}{M} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}::}\PYG{n}{iterator} \PYG{n}{begin} \PYG{o}{=} \PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeInQueue}\PYG{p}{().}\PYG{n}{begin}\PYG{p}{();}
+	\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}::}\PYG{n}{iterator} \PYG{n}{end} \PYG{o}{=} \PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeInQueue}\PYG{p}{().}\PYG{n}{end}\PYG{p}{();}
+	\PYG{k}{for} \PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}::}\PYG{n}{iterator} \PYG{n}{it} \PYG{o}{=} \PYG{n}{begin}\PYG{p}{;} \PYG{n}{it} \PYG{o}{!=} \PYG{n}{end}\PYG{p}{;} \PYG{n}{M} \PYG{o}{+=} \PYG{o}{*}\PYG{n}{it}\PYG{p}{,} \PYG{o}{++}\PYG{n}{it}\PYG{p}{);}
+
+	\PYG{k}{return} \PYG{n}{M} \PYG{o}{/} \PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeInQueue}\PYG{p}{().}\PYG{n}{size}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n+nf}{n}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{v}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{T}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{k+kt}{float} \PYG{n}{n} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{v}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{n} \PYG{o}{+=} \PYG{n}{i} \PYG{o}{*} \PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{/} \PYG{n}{T}\PYG{p}{,} \PYG{o}{++}\PYG{n}{i}\PYG{p}{);}
+	
+	\PYG{k}{return} \PYG{n}{n}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{n}{srand}\PYG{p}{(}\PYG{n}{time}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{));}
+
+	\PYG{k+kt}{double} \PYG{n}{current\PYGZus{}time} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{k+kt}{int} \PYG{n}{current\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{k+kt}{int} \PYG{n}{total\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{1000}\PYG{p}{;}
+
+	\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Model M|M|2}\PYG{l+s+se}{\PYGZbs{}n\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+	\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}lambda = \PYGZdq{}}\PYG{p}{;} \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{lambda}\PYG{p}{;}
+	\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}mu = \PYGZdq{}}\PYG{p}{;} \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{mu}\PYG{p}{;}
+	\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+	\PYG{n}{Model} \PYG{n}{model}\PYG{p}{(}\PYG{n}{mu}\PYG{p}{);}
+
+	\PYG{k+kt}{double} \PYG{n}{time\PYGZus{}of\PYGZus{}task} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{countInQueue}\PYG{p}{;}
+
+	\PYG{k}{while} \PYG{p}{((}\PYG{n}{current\PYGZus{}count} \PYG{o}{\PYGZlt{}} \PYG{n}{total\PYGZus{}count}\PYG{p}{)} \PYG{o}{||} \PYG{p}{(}\PYG{n}{model}\PYG{p}{.}\PYG{n}{getTimeInQueue}\PYG{p}{().}\PYG{n}{size}\PYG{p}{()} \PYG{o}{\PYGZlt{}} \PYG{n}{total\PYGZus{}count}\PYG{p}{))} \PYG{p}{\PYGZob{}}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{current\PYGZus{}time} \PYG{o}{==} \PYG{n}{time\PYGZus{}of\PYGZus{}task}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+			\PYG{n}{current\PYGZus{}count}\PYG{o}{++}\PYG{p}{;}
+			
+			\PYG{n}{model}\PYG{p}{.}\PYG{n}{addToQueue}\PYG{p}{(}\PYG{n}{time\PYGZus{}of\PYGZus{}task}\PYG{p}{);}
+
+			\PYG{n}{time\PYGZus{}of\PYGZus{}task} \PYG{o}{+=} \PYG{n}{generateTask}\PYG{p}{();}
+		\PYG{p}{\PYGZcb{}}
+		
+		\PYG{n}{model}\PYG{p}{.}\PYG{n}{analyze}\PYG{p}{(}\PYG{n}{current\PYGZus{}time}\PYG{p}{);}
+		\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{n}{countInQueue}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{model}\PYG{p}{.}\PYG{n}{getQueueLength}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{countInQueue}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{o}{++}\PYG{n}{i}\PYG{p}{);}
+
+		\PYG{n}{countInQueue}\PYG{p}{[}\PYG{n}{model}\PYG{p}{.}\PYG{n}{getQueueLength}\PYG{p}{()]} \PYG{o}{\PYGZhy{}=} \PYG{n}{current\PYGZus{}time}\PYG{p}{;}
+		\PYG{n}{current\PYGZus{}time} \PYG{o}{=} \PYG{n}{nextMoment}\PYG{p}{(}\PYG{n}{model}\PYG{p}{,} \PYG{n}{time\PYGZus{}of\PYGZus{}task}\PYG{p}{);}
+		\PYG{n}{countInQueue}\PYG{p}{[}\PYG{n}{model}\PYG{p}{.}\PYG{n}{getQueueLength}\PYG{p}{()]} \PYG{o}{+=} \PYG{n}{current\PYGZus{}time}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+
+	\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}m = \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{m}\PYG{p}{(}\PYG{n}{model}\PYG{p}{)} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+	\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}n = \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{n}\PYG{p}{(}\PYG{n}{countInQueue}\PYG{p}{,} \PYG{n}{current\PYGZus{}time}\PYG{p}{)} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+	\PYG{n}{system}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pause\PYGZdq{}}\PYG{p}{);}
+
+	\PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

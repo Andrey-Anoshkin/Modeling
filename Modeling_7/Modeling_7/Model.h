@@ -21,7 +21,6 @@ public:
 	Model(double mu);
 
 	void addToQueue(double time);
-	double getFromQueue();
 	size_t getQueueLength();
 	
 	double getTimeOfTaskDoneFirst();

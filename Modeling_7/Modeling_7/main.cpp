@@ -24,13 +24,13 @@ double nextMoment(Model& model, double time_of_task) {
 	return next_moment;
 }
 
-double m(Model& model) {
-	float M = 0;
+double u(Model& model) {
+	float U = 0;
 	vector<double>::iterator begin = model.getTimeInQueue().begin();
 	vector<double>::iterator end = model.getTimeInQueue().end();
-	for (vector<double>::iterator it = begin; it != end; M += *it, ++it);
+	for (vector<double>::iterator it = begin; it != end; U += *it, ++it);
 
-	return M / model.getTimeInQueue().size();
+	return U / model.getTimeInQueue().size();
 }
 
 double n(vector<double>& v, double T) {
@@ -75,7 +75,7 @@ int main() {
 		countInQueue[model.getQueueLength()] += current_time;
 	}
 
-	cout << "m = " << m(model) << "\n";
+	cout << "u = " << u(model) << "\n";
 	cout << "n = " << n(countInQueue, current_time) << "\n";
 
 	system("pause");

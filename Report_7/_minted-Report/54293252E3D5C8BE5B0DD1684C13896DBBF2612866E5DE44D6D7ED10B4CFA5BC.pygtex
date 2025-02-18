@@ -1,0 +1,68 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Model.h\PYGZdq{}}
+
+\PYG{n}{Model}\PYG{o}{::}\PYG{n}{Model}\PYG{p}{(}\PYG{k+kt}{double} \PYG{n}{mu}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{n}{srand}\PYG{p}{(}\PYG{n}{time}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{));}
+	\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{mu} \PYG{o}{=} \PYG{n}{mu}\PYG{p}{;}
+	\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}1} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
+	\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}2} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
+	\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneFirst} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{;}
+	\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneSecond} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{addToQueue}\PYG{p}{(}\PYG{k+kt}{double} \PYG{n}{time}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{push}\PYG{p}{(}\PYG{n}{time}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{getQueueLength}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{getTimeOfTaskDoneFirst}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneFirst}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{getTimeOfTaskDoneSecond}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneSecond}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{generateTime}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{k+kt}{int} \PYG{n}{r} \PYG{o}{=} \PYG{n}{rand}\PYG{p}{();}
+	\PYG{k}{return} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0} \PYG{o}{/} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{mu} \PYG{o}{*} \PYG{n}{log}\PYG{p}{(}\PYG{n}{min}\PYG{p}{(}\PYG{n}{max}\PYG{p}{(}\PYG{n}{r}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{RAND\PYGZus{}MAX} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{1.0} \PYG{o}{/} \PYG{n}{RAND\PYGZus{}MAX}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{analyze}\PYG{p}{(}\PYG{k+kt}{double} \PYG{n}{time}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{k}{if} \PYG{p}{(}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}1}\PYG{p}{)}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{time} \PYG{o}{\PYGZgt{}=} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneFirst} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{time} \PYG{o}{\PYGZlt{}=} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneFirst}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}1} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneFirst} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{;}
+		\PYG{p}{\PYGZcb{}}
+
+	\PYG{k}{if} \PYG{p}{(}\PYG{o}{!}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}1}\PYG{p}{)}
+		\PYG{k}{if} \PYG{p}{(}\PYG{o}{!}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{empty}\PYG{p}{())} \PYG{p}{\PYGZob{}}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}1} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeInQueue}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{time} \PYG{o}{\PYGZhy{}} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{front}\PYG{p}{());}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{pop}\PYG{p}{();}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneFirst} \PYG{o}{=} \PYG{n}{time} \PYG{o}{+} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{generateTime}\PYG{p}{();}
+		\PYG{p}{\PYGZcb{}}
+	
+
+	\PYG{k}{if} \PYG{p}{(}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}2}\PYG{p}{)}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{time} \PYG{o}{\PYGZgt{}=} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneSecond} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{time} \PYG{o}{\PYGZlt{}=} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneSecond}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}2} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneSecond} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{;}
+		\PYG{p}{\PYGZcb{}}
+	
+	\PYG{k}{if} \PYG{p}{(}\PYG{o}{!}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}2}\PYG{p}{)}
+		\PYG{k}{if} \PYG{p}{(}\PYG{o}{!}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{empty}\PYG{p}{())} \PYG{p}{\PYGZob{}}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{active\PYGZus{}2} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeInQueue}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{time} \PYG{o}{\PYGZhy{}} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{front}\PYG{p}{());}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{q}\PYG{p}{.}\PYG{n}{pop}\PYG{p}{();}
+			\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeOfTaskDoneSecond} \PYG{o}{=} \PYG{n}{time} \PYG{o}{+} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{generateTime}\PYG{p}{();}
+		\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{Model}\PYG{o}{::}\PYG{n}{getTimeInQueue}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{k}{return} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{timeInQueue}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

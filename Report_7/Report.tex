@@ -1,0 +1,377 @@
+\documentclass[bachelor, och, referat]{SCWorks}
+% параметр - тип обучения - одно из значений:
+%    spec     - специальность
+%    bachelor - бакалавриат (по умолчанию)
+%    master   - магистратура
+% параметр - форма обучения - одно из значений:
+%    och   - очное (по умолчанию)
+%    zaoch - заочное
+% параметр - тип работы - одно из значений:
+%    referat    - реферат
+%    coursework - курсовая работа (по умолчанию)
+%    diploma    - дипломная работа
+%    pract      - отчет по практике
+%    pract      - отчет о научно-исследовательской работе
+%    autoref    - автореферат выпускной работы
+%    assignment - задание на выпускную квалификационную работу
+%    review     - отзыв руководителя
+%    critique   - рецензия на выпускную работу
+% параметр - включение шрифта
+%    times    - включение шрифта Times New Roman (если установлен)
+%               по умолчанию выключен
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage{graphicx}
+
+\usepackage[sort,compress]{cite}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{longtable}
+\usepackage{minted}
+\usepackage{array}
+\usepackage[english,russian]{babel}
+\usepackage{tempora}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\usepackage[hidelinks]{hyperref}
+
+\setminted{
+	style=bw,
+	framesep=2mm, 
+	baselinestretch=1.2, 
+	fontsize=\small, 
+	linenos,
+	breaklines=true
+}
+
+\newcommand{\eqdef}{\stackrel {\rm def}{=}}
+
+\newtheorem{lem}{Лемма}
+
+\begin{document}
+
+% Кафедра (в родительном падеже)
+\chair{математической кибернетики и компьютерных наук}
+
+% Тема работы
+\title{Моделирование систем. Вариант 2}
+
+% Курс
+\course{4}
+
+% Группа
+\group{411}
+
+% Факультет (в родительном падеже) (по умолчанию "факультета КНиИТ")
+%\department{факультета КНиИТ}
+
+% Специальность/направление код - наименование
+\napravlenie{02.03.02 "--- Фундаментальная информатика и информационные технологии}
+%\napravlenie{02.03.01 "--- Математическое обеспечение и администрирование информационных систем}
+%\napravlenie{09.03.01 "--- Информатика и вычислительная техника}
+%\napravlenie{09.03.04 "--- Программная инженерия}
+%\napravlenie{10.05.01 "--- Компьютерная безопасность}
+
+% Для студентки. Для работы студента следующая команда не нужна.
+%\studenttitle{cтудента}
+
+% Фамилия, имя, отчество в родительном падеже
+\author{Аношкина Андрея Алексеевича}
+
+% Заведующий кафедрой
+\chtitle{к.\,ф.-м.\,н., доцент} % степень, звание
+\chname{С.\,В.\,Миронов}
+
+%Научный руководитель (для реферата преподаватель проверяющий работу)
+\satitle{к.\,ф.-м.\,н., доцент} %должность, степень, звание
+\saname{И.\,Е.\,Тананко}
+
+% Руководитель практики от организации (только для практики,
+% для остальных типов работ не используется)
+\patitle{к.\,ф.-м.\,н., доцент}
+\paname{Д.\,Ю.\,Петров}
+
+% Семестр (только для практики, для остальных
+% типов работ не используется)
+\term{8}
+
+% Наименование практики (только для практики, для остальных
+% типов работ не используется)
+\practtype{учебная}
+
+% Продолжительность практики (количество недель) (только для практики,
+% для остальных типов работ не используется)
+\duration{2}
+
+% Даты начала и окончания практики (только для практики, для остальных
+% типов работ не используется)
+\practStart{01.07.2016}
+\practFinish{14.07.2016}
+
+% Год выполнения отчета
+\date{2025}
+
+\maketitle
+
+% Включение нумерации рисунков, формул и таблиц по разделам
+% (по умолчанию - нумерация сквозная)
+% (допускается оба вида нумерации)
+%\secNumbering
+
+
+\tableofcontents
+
+% Раздел "Обозначения и сокращения". Может отсутствовать в работе
+%\abbreviations
+
+% Раздел "Определения". Может отсутствовать в работе
+%\definitions
+
+% Раздел "Определения, обозначения и сокращения". Может отсутствовать в работе.
+% Если присутствует, то заменяет собой разделы "Обозначения и сокращения" и "Определения"
+%\defabbr
+
+
+% Раздел "Введение"
+%\intro
+
+\section{ИМИТАЦИОННОЕ МОДЕЛИРОВАНИЕ СИСТЕМ И СЕТЕЙ МАССОВОГО ОБСЛУЖИВАНИЯ}
+
+\subsection{Системы массового обслуживания}
+
+\subsubsection{Постановка задачи}
+
+Дана СМО типа M | M | 2. Построить имитационную модель
+системы. На основании 1000 выборочных значений оценить $\overline{u}$ и $\overline{n}$.
+
+\subsubsection{Код}
+
+\verb|Model.h|
+\begin{minted}{cpp}
+#pragma once
+#include <queue>
+#include <vector>
+#include <time.h>
+
+using namespace std;
+
+class Model {
+private:
+	queue<double> q;
+	double timeOfTaskDoneFirst;
+	double timeOfTaskDoneSecond;
+	double mu;
+	bool active_1;
+	bool active_2;
+	vector<double> timeInQueue;
+
+	double generateTime();
+
+public:
+	Model(double mu);
+
+	void addToQueue(double time);
+	size_t getQueueLength();
+	
+	double getTimeOfTaskDoneFirst();
+	double getTimeOfTaskDoneSecond();
+	
+	void analyze(double time);
+	
+	vector<double>& getTimeInQueue();
+};
+\end{minted}
+
+\verb|Model.cpp|
+\begin{minted}{cpp}
+#include "Model.h"
+
+Model::Model(double mu) {
+	srand(time(0));
+	this->mu = mu;
+	this->active_1 = false;
+	this->active_2 = false;
+	this->timeOfTaskDoneFirst = 100000;
+	this->timeOfTaskDoneSecond = 100000;
+}
+
+void Model::addToQueue(double time) {
+	this->q.push(time);
+}
+
+size_t Model::getQueueLength() {
+	return this->q.size();
+}
+
+double Model::getTimeOfTaskDoneFirst() {
+	return this->timeOfTaskDoneFirst;
+}
+
+double Model::getTimeOfTaskDoneSecond() {
+	return this->timeOfTaskDoneSecond;
+}
+
+double Model::generateTime() {
+	int r = rand();
+	return -1.0 / this->mu * log(min(max(r, 1), RAND_MAX - 1) * 1.0 / RAND_MAX);
+}
+
+void Model::analyze(double time) {
+	if (this->active_1)
+		if (time >= this->timeOfTaskDoneFirst && time <= this->timeOfTaskDoneFirst) {
+			this->active_1 = false;
+			this->timeOfTaskDoneFirst = 100000;
+		}
+
+	if (!this->active_1) 
+		if (!this->q.empty()) {
+			this->active_1 = true;
+			this->timeInQueue.push_back(time - this->q.front());
+			this->q.pop();
+			this->timeOfTaskDoneFirst = time + this->generateTime();
+		}
+	
+
+	if (this->active_2) 
+		if (time >= this->timeOfTaskDoneSecond && time <= this->timeOfTaskDoneSecond) {
+			this->active_2 = false;
+			this->timeOfTaskDoneSecond = 100000;
+		}
+	
+	if (!this->active_2) 
+		if (!this->q.empty()) {
+			this->active_2 = true;
+			this->timeInQueue.push_back(time - this->q.front());
+			this->q.pop();
+			this->timeOfTaskDoneSecond = time + this->generateTime();
+		}
+}
+
+vector<double>& Model::getTimeInQueue() {
+	return this->timeInQueue;
+}
+\end{minted}
+
+\verb|main.cpp|
+\begin{minted}{cpp}
+#include <iostream>
+#include <vector>
+#include <time.h>
+#include <cmath>
+#include "Model.h"
+
+using namespace std;
+
+double lambda = 20;
+double mu = 15;
+
+double generateTask() {
+	int r = rand();
+	return -1.0 / lambda * log(min(max(r, 1), RAND_MAX - 1) * 1.0 / RAND_MAX);
+}
+
+double nextMoment(Model& model, double time_of_task) {
+	double min_time =
+		(model.getTimeOfTaskDoneFirst() <= model.getTimeOfTaskDoneSecond()) ?
+		model.getTimeOfTaskDoneFirst() : model.getTimeOfTaskDoneSecond();
+
+	double next_moment = (min_time <= time_of_task) ? min_time : time_of_task;
+
+	return next_moment;
+}
+
+double m(Model& model) {
+	float M = 0;
+	vector<double>::iterator begin = model.getTimeInQueue().begin();
+	vector<double>::iterator end = model.getTimeInQueue().end();
+	for (vector<double>::iterator it = begin; it != end; M += *it, ++it);
+
+	return M / model.getTimeInQueue().size();
+}
+
+double n(vector<double>& v, double T) {
+	float n = 0;
+	for (int i = 0; i < v.size(); n += i * v[i] / T, ++i);
+	
+	return n;
+}
+
+int main() {
+	srand(time(0));
+
+	double current_time = 0;
+	int current_count = 0;
+	int total_count = 1000;
+
+	cout << "Model M|M|2\n\n";
+
+	cout << "lambda = "; cin >> lambda;
+	cout << "mu = "; cin >> mu;
+	cout << "\n";
+
+	Model model(mu);
+
+	double time_of_task = 0;
+	vector<double> countInQueue;
+
+	while ((current_count < total_count) || (model.getTimeInQueue().size() < total_count)) {
+		if (current_time == time_of_task) {
+			current_count++;
+			
+			model.addToQueue(time_of_task);
+
+			time_of_task += generateTask();
+		}
+		
+		model.analyze(current_time);
+		for (int i = countInQueue.size(); i < model.getQueueLength() + 1; countInQueue.push_back(0), ++i);
+
+		countInQueue[model.getQueueLength()] -= current_time;
+		current_time = nextMoment(model, time_of_task);
+		countInQueue[model.getQueueLength()] += current_time;
+	}
+
+	cout << "m = " << m(model) << "\n";
+	cout << "n = " << n(countInQueue, current_time) << "\n";
+
+	system("pause");
+
+	return 0;
+}
+\end{minted}
+
+\subsubsection{Результат}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\linewidth]{pictures/pic-1.png}
+\caption{$\lambda = 20, \mu = 15$}
+\end{figure}
+
+% Раздел "Заключение"
+%\conclusion
+
+%Библиографический список, составленный вручную, без использования BibTeX
+%
+%\begin{thebibliography}{99}
+%  \bibitem{Ione} Источник 1.
+%  \bibitem{Itwo} Источник 2
+%\end{thebibliography}
+
+%Библиографический список, составленный с помощью BibTeX
+%
+%\bibliographystyle{gost780uv}
+%\bibliography{thesis}
+
+%\appendix
+
+
+% Окончание основного документа и начало приложений
+% Каждая последующая секция документа будет являться приложением
+%\appendix
+
+\end{document}

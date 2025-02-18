@@ -13,10 +13,6 @@ void Model::addToQueue(double time) {
 	this->q.push(time);
 }
 
-double Model::getFromQueue() {
-	return this->q.front();
-}
-
 size_t Model::getQueueLength() {
 	return this->q.size();
 }
