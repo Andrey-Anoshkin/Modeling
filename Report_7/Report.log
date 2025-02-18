@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3 32-bit Portable) (preloaded format=pdflatex 2021.5.20)  18 FEB 2025 12:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3 32-bit Portable) (preloaded format=pdflatex 2021.5.20)  18 FEB 2025 12:53
 entering extended mode
 **./Report.tex
 (Report.tex
@@ -2559,8 +2559,8 @@ LaTeX Font Warning: Font shape `T2A/pcr/b/it' undefined
 File: pictures/pic-1.png Graphic file (type png)
 <use pictures/pic-1.png>
 Package pdftex.def Info: pictures/pic-1.png  used on input line 351.
-(pdftex.def)             Requested size: 386.95897pt x 188.48276pt.
- [7] [8 <./pictures/pic-1.png (PNG copy)>] (Report.aux)
+(pdftex.def)             Requested size: 338.58632pt x 164.91519pt.
+ [7 <./pictures/pic-1.png (PNG copy)>] (Report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -2570,8 +2570,8 @@ runsystem(del Report.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 39645 strings out of 479129
- 881698 string characters out of 2849007
+ 39644 strings out of 479129
+ 881692 string characters out of 2849007
  1282493 words of memory out of 3000000
  56525 multiletter control sequences out of 15000+600000
  428025 words of font info for 68 fonts, out of 8000000 for 9000
@@ -2589,9 +2589,9 @@ top/University/PortableTEX/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.
 pfb><C:/Users/PC/Desktop/University/PortableTEX/texmfs/install/fonts/type1/publ
 ic/amsfonts/cm/cmr12.pfb><C:/Users/PC/Desktop/University/PortableTEX/texmfs/ins
 tall/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on Report.pdf (8 pages, 142932 bytes).
+Output written on Report.pdf (7 pages, 142374 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 15 named destinations out of 1000 (max. 500000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
  58 words of extra memory for PDF output out of 10000 (max. 10000000)
 
