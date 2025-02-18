@@ -31,7 +31,7 @@ double Model::getTimeOfTaskDoneSecond() {
 
 double Model::generateTime() {
 	int r = rand();
-	return -1.f / this->mu * log((r % RAND_MAX + 1) * 1.f / RAND_MAX);
+	return -1.0 / this->mu * log(min(max(r, 1), RAND_MAX - 1) * 1.0 / RAND_MAX);
 }
 
 void Model::analyze(double time) {

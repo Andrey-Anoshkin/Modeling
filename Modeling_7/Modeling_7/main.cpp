@@ -11,7 +11,7 @@ double mu = 15;
 
 double generateTask() {
 	int r = rand();
-	return -1.0 / lambda * log((r % RAND_MAX + 1) * 1.0 / RAND_MAX);
+	return -1.0 / lambda * log(min(max(r, 1), RAND_MAX - 1) * 1.0 / RAND_MAX);
 }
 
 double nextMoment(Model& model, double time_of_task) {
@@ -47,22 +47,25 @@ int main() {
 	int current_count = 0;
 	int total_count = 1000;
 
+	cout << "Model M|M|2\n\n";
+
+	cout << "lambda = "; cin >> lambda;
+	cout << "mu = "; cin >> mu;
+	cout << "\n";
+
 	Model model(mu);
 
 	double time_of_task = 0;
 	vector<double> countInQueue;
 
-	while ((current_count != total_count) || (model.getQueueLength() > 0)) {
-		if (current_time == time_of_task && current_count != total_count) {
+	while ((current_count < total_count) || (model.getTimeInQueue().size() < total_count)) {
+		if (current_time == time_of_task) {
 			current_count++;
 			
 			model.addToQueue(time_of_task);
 
 			time_of_task += generateTask();
 		}
-		
-		if (current_count == total_count) 
-			time_of_task = 100000;
 		
 		model.analyze(current_time);
 		for (int i = countInQueue.size(); i < model.getQueueLength() + 1; countInQueue.push_back(0), ++i);
